@@ -1,14 +1,35 @@
-
-  .container {
-  width: 70px;
-  height: 70%;
+.container {
+  width: 90px;
+  height: 90%;
   margin: 40px auto;
   border-radius: 25px;
   border: 1px solid #000;
-  }
+  text-align: center;
+  padding: 50px;
+  background-color: #fff;
+}
 
-  .body{
-    background-image: url("Sewer.jpg");
-    background-size: cover;
-    background-repeat: no-repeat;
+button {
+  min-width: 250px;
+  height: 100px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.adventure-description {
+  font-size: 18px;
+  line-height: 26px;
+  margin-bottom: 40px;
+}
+
+.profile {
+  border-radius: 50%;
+  border: 2px #000 solid;
+}
+
+body {
+background-image: url("images/forest.jfif");
+background-size: cover;
+background-repeat: no-repeat;
+font-family: monospace;
 }

@@ -6,28 +6,64 @@ const optionButtons = document.getElementsByClassName("button");
 
 console.log(descriptionText, optionButtons);
 
+let startIndex = 0;
+
 // function that starts the game
-function startAdventure() {
+function startAdventure(objectID) {
   console.log("Adventure has begun!");
-  showAdventureDescription(2);
+  
+  let ids = textAdventure.map((item) => {
+    console.log(item.id);
+    return item.id;
+  });
+
+  if (startIndex > ids.length -1){
+    startIndex = 0;
+  }
+  showAdventureDescription(ids[startIndex]);
 }
 
-// function that adds the options and tracks the choices
 
 // create a function that shows the description
 function showAdventureOptions(textAdventureID) {
+  
   const newDescriptionText = textAdventure.find(gameNode => gameNode.id === textAdventureID );
+  if (!newDescriptionText.options) {
+    
+    document.getElementById("button1").style.display = "none";
+
+    
+    descriptionText.innerHTML = newDescriptionText.message;
+
+    document.getElementById("button2").innerHTML = "Play Again";
+    return;
+  }
+
   descriptionText.innerText = newDescriptionText.description;
+  
   //iterate through the buttons and insert the option text in each button
   for(let i = 0; i < newDescriptionText.options.length; i++) {
-    //console.log(newDescriptionText.options[i].buttontext);
     optionButtons.innerText = newDescriptionText.options[i].buttontext;
   }
 }
 
-// function that tracks options and passes the id to the showAdventureOptions function
+//  functions for button events
 
-// optional: function that shows end of the game
+function onNextOption(event) {
+  event.preventDefault();
+  startIndex++;
+  startAdventure();
+}
+
+function onPlayAgain(event) {
+  event.preventDefault();
+  
+  document.getElementById("button1").style.display = "inline";
+
+  startIndex = 0;
+
+  startAdventure();
+}
 
 
 
@@ -58,12 +94,32 @@ const textAdventure = [
         nextText: 3
       },
       {
-        buttontext: "Jump in the water to face the mystery in the water",
+        buttontext: "Jump in the water and start swimming",
         nextText: 3
       }
     ]
   },
-  ]
+  {
+    id: 3,
+    desription: " Al found the exit! He sees his house but doesn't want to go back. What should he do?",
+    options: [
+  {
+    buttontext: "Head home anyway",
+    setState: {headback: true},
+  },
+  {
+    buttontext: "Go to the park to start a new adventure",
+    setState: {daylight: true},
+    nexttext: 4,
+  },
+],
+  },
+  {
+    id: 4,
+    message: "Thanks for saving Al!"
+      
+  },
+  ];
 
 
-textAdventure()
+startAdventure(startIndex);
